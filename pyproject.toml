@@ -43,7 +43,7 @@ dependencies = [
     "azure-storage-blob>=12.19,<13.0",
     "slack-sdk>=3.27,<4.0",
     "keyring>=25.0,<26.0",
-    "PyYAML>=6.0,<7.0",
+    "PyYAML>=6.0.3,<7.0",
 ]
 
 [project.optional-dependencies]
