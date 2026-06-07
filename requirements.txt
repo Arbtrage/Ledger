@@ -1,0 +1,4 @@
+# Pinned development environment — regenerate with: pip-compile pyproject.toml
+# Production installs should use: pip install ledger
+
+-e ".[dev]"
