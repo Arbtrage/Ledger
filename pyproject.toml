@@ -41,7 +41,7 @@ dependencies = [
     "boto3>=1.34,<2.0",
     "google-cloud-storage>=3.11.0,<4.0",
     "azure-storage-blob>=12.19,<13.0",
-    "slack-sdk>=3.27,<4.0",
+    "slack-sdk>=3.42.0,<4.0",
     "keyring>=25.0,<26.0",
     "PyYAML>=6.0,<7.0",
 ]
