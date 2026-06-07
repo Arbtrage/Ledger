@@ -1,0 +1,65 @@
+site_name: Ledger
+site_description: Production-grade database backup orchestration
+site_url: https://ledger-org.github.io/ledger
+repo_url: https://github.com/ledger-org/ledger
+repo_name: ledger-org/ledger
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: cyan
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: cyan
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - search.suggest
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quick Start: getting-started.md
+      - Profiles: profiles.md
+      - Installation: installation.md
+  - Guides:
+      - Backup & Restore: backup-restore.md
+      - Cloud Storage: cloud-storage.md
+      - Scheduling: scheduling.md
+  - Reference:
+      - Architecture: architecture.md
+      - CLI Reference: cli-reference.md
+      - Configuration: configuration.md
+  - Project:
+      - Roadmap: ROADMAP.md
+      - Versioning: versioning.md
+      - Release Strategy: release-strategy.md
+      - Deployment: deployment.md
+      - Contributing: contributing.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
