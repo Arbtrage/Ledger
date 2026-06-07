@@ -1,0 +1,29 @@
+# Example Ledger configuration
+# Copy to ledger.yaml and customize. Never store passwords here — use env vars.
+
+log_level: INFO
+log_json: false
+
+database:
+  type: mysql
+  host: localhost
+  port: 3306
+  name: myapp
+  # user and password via LEDGER_DB_USER / LEDGER_DB_PASSWORD
+
+storage:
+  type: local
+  path: ./backups
+  # bucket: my-backups        # for s3 | gcs | azure
+  # prefix: prod/
+  # region: us-east-1
+
+backup:
+  compression: gzip
+  encrypt: false
+
+scheduler:
+  job_store: ./scheduler_jobs.sqlite
+
+notifications:
+  # slack_webhook_url via LEDGER_SLACK_WEBHOOK_URL env var

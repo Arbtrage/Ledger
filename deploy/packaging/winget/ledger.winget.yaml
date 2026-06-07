@@ -1,0 +1,15 @@
+# WinGet manifest scaffold — see https://github.com/microsoft/winget-pkgs
+PackageIdentifier: Ledger.Ledger
+PackageVersion: 0.1.0
+PackageLocale: en-US
+Publisher: Ledger Contributors
+PackageName: Ledger
+License: MIT
+ShortDescription: Production-grade database backup orchestration
+Installers:
+  - Architecture: x64
+    InstallerType: pip
+    InstallerUrl: https://pypi.org/pypi/ledger/json
+    InstallerSha256: PLACEHOLDER
+Commands:
+  - ledger

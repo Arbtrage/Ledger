@@ -1,0 +1,14 @@
+database:
+  db_type: postgres
+  host: localhost
+  port: 5432
+  database: myapp
+  username: postgres
+storage:
+  storage_type: s3
+  bucket: my-backups
+  region: us-east-1
+  prefix: prod/
+compression: gzip
+encrypt: true
+description: Production PostgreSQL nightly backup
