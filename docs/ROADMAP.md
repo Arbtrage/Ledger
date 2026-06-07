@@ -1,88 +1,58 @@
-# Roadmap
+# What's Coming
 
-**Vision:** The Docker / kubectl / gh of database backups.
+Ledger is in active development. Here's what's available today and what's on the way.
 
-**Current status:** UX scaffold complete (init wizard, profiles, Rich UI, Textual dashboard). Backup pipeline implementation next.
+## Available now (v0.1)
 
----
-
-## Phase 1 — UX Foundation (Week 1–2) ✅
-
-| Task | Status |
+| Feature | Command |
 |---|---|
-| Profile system (`~/.ledger/profiles/`) | ✅ Done |
-| `ledger init` interactive wizard | ✅ Done |
-| `ledger backup <profile>` command | ✅ Scaffold |
-| Rich banner, tables, progress stubs | ✅ Done |
-| Textual dashboard scaffold | ✅ Done |
-| `ledger backups` explorer | ✅ Scaffold |
-| `ledger restore` interactive picker | ✅ Scaffold |
-| Dry-run + verification stubs | ✅ Done |
-| MkDocs Material docs site | ✅ Done |
-| Homebrew / WinGet / Docker scaffolds | ✅ Done |
+| Interactive setup | `ledger init` |
+| Named profiles | `ledger profiles` |
+| Backup (dry-run) | `ledger backup <profile> --dry-run` |
+| Restore explorer | `ledger restore` |
+| Backup history | `ledger backups` |
+| Terminal dashboard | `ledger dashboard` |
+| Rich terminal UI | progress bars, tables, banners |
 
-**Exit criteria:** `ledger init` → `ledger backup postgres-prod --dry-run` shows a polished plan.
+## Coming next
 
----
+### Backup & restore engine
 
-## Phase 2 — Backup pipeline (Week 3)
+- Live backup with streaming progress (speed, ETA, compression stats)
+- PostgreSQL, MySQL, MongoDB, SQLite adapters
+- Post-backup verification (checksum + optional restore test)
+- Cloud upload progress for S3, GCS, Azure
 
-| Task | Status |
+### Scheduling & automation
+
+- `ledger schedule` cron daemon with persistent job store
+- AES-256-GCM encryption at rest
+- Slack notifications on success/failure
+
+### Distribution
+
+- `brew install ledger` (Homebrew tap)
+- `winget install Ledger.Ledger` (Windows)
+- Official Docker image on `ghcr.io`
+
+## Future
+
+| Feature | Description |
 |---|---|
-| PostgreSQL adapter (`pg_dump` streaming) | ⬜ Pending |
-| MySQL adapter (`mysqldump`) | ⬜ Pending |
-| MongoDB + SQLite adapters | ⬜ Pending |
-| Rich live progress (speed, ETA, compression stats) | ⬜ Pending |
-| `history.db` write on completion | ⬜ Pending |
-| Unit tests (mocked subprocess) | ⬜ Pending |
-
-**Exit criteria:** `ledger backup postgres-prod` produces a verified `.sql.gz` with live progress.
-
----
-
-## Phase 3 — Cloud + scheduling (Week 4–5)
-
-| Task | Status |
-|---|---|
-| S3 / GCS / Azure upload with progress | ⬜ Pending |
-| `ledger schedule --profile` cron daemon | ⬜ Pending |
-| AES-256-GCM encryption layer | ⬜ Pending |
-| Post-backup verification (checksum + restore test) | ⬜ Pending |
-
----
-
-## Phase 4 — Ship it (Week 6)
-
-| Task | Status |
-|---|---|
-| `pipx install ledger` on PyPI | ⬜ Pending |
-| Homebrew tap publish | ⬜ Pending |
-| Product Hunt GIFs (init, backup, restore, dashboard) | ⬜ Pending |
-| Landing page (docs / GitHub Pages) | ⬜ Pending |
-| Integration tests in CI | ⬜ Pending |
-| Coverage ≥ 80% | ⬜ Pending |
-
----
-
-## Premium (post v1.0)
-
-| Feature | Notes |
-|---|---|
-| Cloud dashboard | SaaS |
-| Team backups | Multi-user profiles |
-| Monitoring + alerting | Slack, PagerDuty |
-| Backup analytics | Size trends, savings |
-| Multi-region storage | DR |
+| Cloud dashboard | Web UI for backup history and monitoring |
+| Team profiles | Shared profile management |
+| Backup analytics | Size trends, compression savings |
+| Multi-region storage | DR-ready replication |
 
 ## Free tier
 
 Unlimited local backups — free forever.
 
-## Milestones
+## Version milestones
 
-| Version | Highlights |
+| Version | Focus |
 |---|---|
-| `0.1.0` | Scaffold, profiles, Rich/Textual UI |
-| `0.2.0` | Working backup pipeline + progress |
-| `0.3.0` | Cloud storage + scheduling + verification |
-| `1.0.0` | PyPI, Homebrew, Product Hunt launch |
+| `0.1.x` | CLI, profiles, UI (current) |
+| `0.2.x` | Working backup pipeline + live progress |
+| `0.3.x` | Cloud storage, scheduling, verification |
+| `1.0.0` | Stable release on PyPI, Homebrew, winget |

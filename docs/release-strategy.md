@@ -1,6 +1,6 @@
 # Release Strategy
 
-How Ledger versions are cut, tested, published, and announced.
+*Maintainers only.* How Ledger CLI releases are cut, tested, and published to PyPI and package managers.
 
 ## Release cadence
 

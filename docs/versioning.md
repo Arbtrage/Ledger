@@ -1,5 +1,7 @@
 # Versioning Strategy
 
+*Maintainers only.* How the Ledger CLI is versioned and released.
+
 Ledger follows [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
 ## Format

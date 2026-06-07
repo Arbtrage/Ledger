@@ -1,18 +1,31 @@
 # Backup & Restore
 
-## Backup
+## Run a backup
 
 ```bash
 ledger backup postgres-prod
 ```
 
+Ledger shows live progress: dump → compress → upload → verify.
+
 ### Dry run
+
+See exactly what will happen — no database or storage I/O:
 
 ```bash
 ledger backup postgres-prod --dry-run
 ```
 
-Shows exactly what will happen — no I/O.
+```text
+Dry run — postgres-prod
+
+  1. Connect to postgres at localhost
+  2. Run full backup of database 'myapp'
+  3. Compress with gzip
+  4. Upload to s3 bucket my-backups
+  5. Record entry in ~/.ledger/history.db
+  6. Verify backup integrity
+```
 
 ### Verification
 
@@ -24,7 +37,7 @@ Verifying...
 ✓ Backup Valid
 ```
 
-Disable with `--no-verify`.
+Skip with `--no-verify`.
 
 ## Restore
 
@@ -32,13 +45,13 @@ Disable with `--no-verify`.
 ledger restore
 ```
 
-Interactive picker — select profile, then backup from history table.
+Interactive flow: pick a profile → see recent backups → select one to restore.
 
 ```bash
 ledger restore postgres-prod --backup abc12345
 ```
 
-## Backup explorer
+## Browse backups
 
 ```bash
 ledger backups

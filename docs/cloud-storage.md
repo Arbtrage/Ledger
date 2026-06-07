@@ -1,6 +1,6 @@
 # Cloud Storage
 
-Profiles support S3, GCS, and Azure Blob storage backends.
+Back up to S3, GCS, or Azure Blob by choosing cloud storage during `ledger init` or in your profile YAML.
 
 ```bash
 ledger init

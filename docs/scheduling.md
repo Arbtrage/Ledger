@@ -1,11 +1,28 @@
 # Scheduling
 
+Run unattended backups with Ledger's built-in scheduler.
+
 ```bash
-ledger schedule add --job-id nightly --cron "0 2 * * *" --profile postgres-prod
+ledger schedule add \
+  --job-id nightly \
+  --cron "0 2 * * *" \
+  --profile postgres-prod
+
 ledger schedule list
-ledger schedule daemon
+ledger schedule daemon    # blocking — run under systemd or supervisor
 ```
 
-Scheduler uses APScheduler with a persistent SQLite job store at `~/.ledger/scheduler_jobs.sqlite`.
+Jobs persist across restarts in `~/.ledger/scheduler_jobs.sqlite`.
 
-> **Status:** Scaffold — implementation pending Phase 3.
+!!! note "Coming soon"
+    The scheduler daemon is under active development. Use system cron as an alternative today — see [Deployment](deployment.md).
+
+## Cron alternative
+
+Until the daemon ships, use system cron:
+
+```bash
+0 2 * * * ledger backup postgres-prod >> ~/.ledger/logs/cron.log 2>&1
+```
+
+See [examples/cron-nightly.sh](https://github.com/ledger-org/ledger/blob/main/examples/cron-nightly.sh).

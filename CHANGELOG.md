@@ -1,10 +1,13 @@
 # Changelog
 
-All notable changes to **Ledger** are documented in this file.
+All notable changes to the **Ledger CLI** are documented in this file.
 
 ## [Unreleased]
 
 ### Changed
+- Repositioned README and docs as a developer CLI tool (install-first, not project-first)
+- Renamed roadmap to "What's Coming" and architecture to "How Ledger Works"
+- Moved maintainer docs under a dedicated MkDocs nav section
 - Moved application code under `src/` (cli, core, database, storage, ui, tui, utils)
 - Grouped deploy assets under `deploy/` (docker, packaging, docker-compose)
 - Moved `config/ledger.example.yaml` → `examples/ledger.example.yaml`

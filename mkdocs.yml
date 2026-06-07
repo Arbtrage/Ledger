@@ -1,5 +1,5 @@
 site_name: Ledger
-site_description: Production-grade database backup orchestration
+site_description: CLI tool for database backups — install, configure profiles, and back up PostgreSQL, MySQL, MongoDB, and SQLite
 site_url: https://ledger-org.github.io/ledger
 repo_url: https://github.com/ledger-org/ledger
 repo_name: ledger-org/ledger
@@ -30,22 +30,22 @@ nav:
   - Home: index.md
   - Getting Started:
       - Quick Start: getting-started.md
-      - Profiles: profiles.md
       - Installation: installation.md
+      - Profiles: profiles.md
   - Guides:
       - Backup & Restore: backup-restore.md
       - Cloud Storage: cloud-storage.md
       - Scheduling: scheduling.md
+      - Deployment: deployment.md
   - Reference:
-      - Architecture: architecture.md
       - CLI Reference: cli-reference.md
       - Configuration: configuration.md
-  - Project:
-      - Roadmap: ROADMAP.md
+      - How It Works: architecture.md
+  - What's Coming: ROADMAP.md
+  - Maintainers:
+      - Contributing: contributing.md
       - Versioning: versioning.md
       - Release Strategy: release-strategy.md
-      - Deployment: deployment.md
-      - Contributing: contributing.md
 
 plugins:
   - search

@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "ledger"
 version = "0.1.0"
-description = "Production-grade database backup orchestration — Docker-level UX for PostgreSQL, MySQL, MongoDB, and SQLite"
+description = "CLI tool for database backups — profiles, Rich UI, and cloud sync for PostgreSQL, MySQL, MongoDB, and SQLite"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"

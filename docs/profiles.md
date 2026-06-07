@@ -1,28 +1,37 @@
 # Profiles
 
-Profiles are named database + storage configurations stored in `~/.ledger/profiles/`.
+A **profile** is a named backup configuration — database connection, storage target, compression, and encryption settings. Profiles are how you avoid passing flags every time you run a backup.
 
-## Layout
-
-```text
-~/.ledger/
-├── profiles/          # postgres-prod.yaml, mongo-dev.yaml, ...
-├── storage/           # local backup artifacts
-├── history.db         # backup explorer data
-└── logs/              # structured logs
-```
-
-## Commands
+## Create a profile
 
 ```bash
-ledger init                    # create a profile (wizard)
-ledger profiles                # list all profiles
-ledger profiles remove <name>  # delete a profile
-ledger backup <profile>        # run backup
-ledger backup <profile> --dry-run  # preview steps
+ledger init
 ```
 
-## Example profile
+Or copy an example:
+
+```bash
+cp examples/postgres-prod.yaml ~/.ledger/profiles/postgres-prod.yaml
+```
+
+## Use a profile
+
+```bash
+ledger backup postgres-prod
+ledger backup staging-mysql --dry-run
+ledger restore postgres-prod
+```
+
+## Manage profiles
+
+```bash
+ledger profiles                  # list all profiles
+ledger profiles remove old-staging
+```
+
+## Profile file format
+
+Stored at `~/.ledger/profiles/<name>.yaml`:
 
 ```yaml
 database:
@@ -35,8 +44,24 @@ storage:
   storage_type: s3
   bucket: my-backups
   region: us-east-1
+  prefix: prod/
 compression: gzip
-encrypt: false
+encrypt: true
 ```
 
-Passwords are **never** stored in profile files — use `LEDGER_DB_PASSWORD` or keyring.
+Passwords are **not** stored here. Set `LEDGER_DB_PASSWORD` in your environment or use `keyring`.
+
+## Multiple environments
+
+```text
+~/.ledger/profiles/
+├── postgres-prod.yaml
+├── postgres-staging.yaml
+├── mysql-analytics.yaml
+└── mongo-dev.yaml
+```
+
+```bash
+ledger backup postgres-prod
+ledger backup postgres-staging
+```

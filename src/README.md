@@ -1,6 +1,6 @@
-# Source
+# Source layout (maintainers)
 
-Application code lives here to keep the repository root clean.
+Application code for the Ledger CLI. End users install via `pipx install ledger` — they do not interact with this directory.
 
 | Package | Role |
 |---|---|
@@ -12,4 +12,4 @@ Application code lives here to keep the repository root clean.
 | `tui/` | Textual dashboard |
 | `utils/` | Models, exceptions, compression, encryption, logging |
 
-Imports stay flat (`from core.profiles import …`) — `src/` is on `PYTHONPATH` via `pyproject.toml`.
+Imports are flat (`from core.profiles import …`) — `src/` is on `PYTHONPATH` via `pyproject.toml`.

@@ -1,77 +1,69 @@
-# Architecture
+# How Ledger Works
 
-Ledger is a **layered plugin system** with **Docker-level UX**. The CLI calls the engine; the engine calls database adapters. Everything is profile-driven — no 50 flags.
+Ledger is a layered CLI tool: you interact through commands and profiles; the engine handles adapters, compression, encryption, and storage behind abstract interfaces.
 
-## Layer diagram
+## At a glance
 
 ```mermaid
 flowchart TB
     CLI[CLI — Typer + Rich]
     TUI[TUI — Textual dashboard]
-    PROFILES[Core — ProfileStore ~/.ledger/]
-    ORCH[Core — BackupOrchestrator]
-    HIST[Core — HistoryStore]
-    VERIFY[Core — Verification]
-    DB[database/ — AbstractDBAdapter]
-    STORE[storage/ — AbstractStorageBackend]
-    UI[ui/ — Rich components]
+    PROFILES[Profiles — ~/.ledger/]
+    ORCH[Backup engine]
+    DB[Database adapters]
+    STORE[Storage backends]
 
     CLI --> PROFILES
     TUI --> PROFILES
     CLI --> ORCH
     ORCH --> DB
     ORCH --> STORE
-    ORCH --> VERIFY
-    ORCH --> HIST
-    CLI --> UI
 ```
 
-## Package layout
+## Profile-first design
 
-All packages live under `src/` (see [src/README.md](../src/README.md)):
+You never pass connection strings on the command line. A **profile** bundles:
 
-```text
-src/
-├── cli/          # init, backup, restore, profiles, backups, dashboard
-├── core/         # orchestrator, scheduler, profiles, history, verification
-├── database/     # PostgreSQL, MySQL, MongoDB, SQLite adapters
-├── storage/      # local, S3, GCS, Azure
-├── ui/           # Rich banner, progress, tables
-├── tui/          # Textual dashboard
-└── utils/        # models, exceptions, compression, encryption, logging
-```
-
-## Profile-first UX
+- Database type, host, port, database name
+- Storage target (local, S3, GCS, Azure)
+- Compression and encryption preferences
 
 ```bash
-ledger init              # wizard → ~/.ledger/profiles/<name>.yaml
-ledger backup postgres-prod
+ledger init                    # creates ~/.ledger/profiles/<name>.yaml
+ledger backup postgres-prod    # loads profile, runs pipeline
 ```
 
-Profiles bundle database + storage + compression settings. Passwords come from env vars or keyring — never from YAML.
+Passwords and API keys are read from environment variables (`LEDGER_*`) or keyring — never stored in profile files.
 
-## Rich terminal UI
-
-| Component | Module | Purpose |
-|---|---|---|
-| Banner | `ui/banner.py` | Branded header panels |
-| Progress | `ui/progress.py` | Dump / compress / upload / verify stages |
-| Tables | `ui/tables.py` | Profiles, backup explorer |
-| Dashboard | `tui/app.py` | Textual full-screen UI |
-
-## Exception hierarchy
+## Backup pipeline
 
 ```text
-LedgerError
-├── ConnectionError
-├── BackupError
-├── StorageError
-├── RestoreError
-├── ConfigError
-├── EncryptionError
-└── SchedulerError
+database adapter → compress → encrypt (optional) → storage → verify → history.db
 ```
 
-## Core design decisions
+- **Streaming** — 8 MB chunks; memory stays flat on large databases
+- **Atomic writes** — `.tmp` then rename; no corrupt partial files
+- **Timestamped artifacts** — `mydb_full_20240608T142301Z.sql.gz`; never overwritten
 
-Unchanged from the engine layer — subprocess streaming, atomic writes, 8 MB chunks, timestamp filenames. See [deployment.md](deployment.md) for production constraints.
+## Supported backends
+
+| Layer | Options |
+|---|---|
+| Databases | PostgreSQL, MySQL, MongoDB, SQLite |
+| Compression | gzip (default), bz2, lzma |
+| Storage | Local, S3, GCS, Azure Blob |
+| Encryption | AES-256-GCM (optional) |
+
+## Data on disk
+
+```text
+~/.ledger/
+├── profiles/       # YAML profile files
+├── storage/        # local backup artifacts
+├── history.db      # backup explorer index
+└── logs/
+```
+
+## For maintainers
+
+Internal package layout lives under `src/` — see [src/README.md](../src/README.md) if you're contributing to the CLI.
